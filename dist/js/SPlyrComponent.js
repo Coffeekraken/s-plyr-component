@@ -225,8 +225,8 @@ var Component =
               $holder,
               _objectSpread({}, this.props, {
                 loop: {
-                  active: this.props.loop
-                } // remap the loop property as an object
+                  active: this.props.loop // remap the loop property as an object
+                }
               })
             )
 
@@ -317,23 +317,25 @@ var Component =
               $youtube.setAttribute("data-plyr-provider", "youtube")
               $youtube.setAttribute("data-plyr-embed-id", this.props.src)
               return $youtube
-            } else if (this.props.src.match(/vimeo.com/)) {
+            }
+
+            if (this.props.src.match(/vimeo.com/)) {
               var $vimeo = document.createElement("div")
               $vimeo.setAttribute("data-plyr-provider", "vimeo")
               $vimeo.setAttribute("data-plyr-embed-id", this.props.src)
               return $vimeo
-            } else {
-              var $video = document.createElement("video")
-              $video.src = this.props.src
-
-              if (this.props.poster) {
-                $video.setAttribute("poster", this.props.poster)
-              }
-
-              $video.setAttribute("playinline", true)
-              $video.setAttribute("controls", true)
-              return $video
             }
+
+            var $video = document.createElement("video")
+            $video.src = this.props.src
+
+            if (this.props.poster) {
+              $video.setAttribute("poster", this.props.poster)
+            }
+
+            $video.setAttribute("playinline", true)
+            $video.setAttribute("controls", true)
+            return $video
           }
           /**
            * Play
@@ -601,7 +603,7 @@ var Component =
             return this._plyr.currentTime
           },
           set: function set(value) {
-            return (this._plyr.currentTime = value)
+            this._plyr.currentTime = value
           }
           /**
            * Returns a boolean indicating if the current player is seeking.
@@ -631,7 +633,7 @@ var Component =
             return this._plyr.volume
           },
           set: function set(value) {
-            return (this._plyr.volume = value)
+            this._plyr.volume = value
           }
           /**
            * Gets or sets the muted state of the player. The setter accepts a boolean.
@@ -643,7 +645,7 @@ var Component =
             return this._plyr.muted
           },
           set: function set(value) {
-            return (this._plyr.muted = value)
+            this._plyr.muted = value
           }
           /**
            * Returns a boolean indicating if the current media has an audio track.
@@ -664,7 +666,7 @@ var Component =
             return this._plyr.speed
           },
           set: function set(value) {
-            return (this._plyr.speed = value)
+            this._plyr.speed = value
           }
           /**
            * Gets or sets the quality for the player. The setter accepts a value from the options specified in your config.
@@ -676,7 +678,7 @@ var Component =
             return this._plyr.quality
           },
           set: function set(value) {
-            return (this._plyr.quality = value)
+            this._plyr.quality = value
           }
           /**
            * Gets or sets the current loop state of the player. The setter accepts a boolean.
@@ -688,7 +690,7 @@ var Component =
             return this._plyr.loop
           },
           set: function set(value) {
-            return (this._plyr.loop = value)
+            this._plyr.loop = value
           }
           /**
            * Gets or sets the current source for the player. The setter accepts an object. See source setter below for examples.
@@ -700,7 +702,7 @@ var Component =
             return this._plyr.source
           },
           set: function set(value) {
-            return (this._plyr.source = value)
+            this._plyr.source = value
           }
           /**
            * Gets or sets the current poster image for the player. The setter accepts a string; the URL for the updated poster image.
@@ -712,7 +714,7 @@ var Component =
             return this._plyr.poster
           },
           set: function set(value) {
-            return (this._plyr.poster = value)
+            this._plyr.poster = value
           }
           /**
            * Gets or sets the autoplay state of the player. The setter accepts a boolean.
@@ -724,7 +726,7 @@ var Component =
             return this._plyr.autoplay
           },
           set: function set(value) {
-            return (this._plyr.autoplay = value)
+            this._plyr.autoplay = value
           }
           /**
            * Gets or sets the caption track by index. -1 means the track is missing or captions is not active
@@ -736,7 +738,7 @@ var Component =
             return this._plyr.currentTrack
           },
           set: function set(value) {
-            return (this._plyr.currentTrack = value)
+            this._plyr.currentTrack = value
           }
           /**
            * Gets or sets the preferred captions language for the player. The setter accepts an ISO two-letter language code. Support for the languages is dependent on the captions you include. If your captions don't have any language data, or if you have multiple tracks with the same language, you may want to use currentTrack instead.
@@ -748,7 +750,7 @@ var Component =
             return this._plyr.language
           },
           set: function set(value) {
-            return (this._plyr.language = value)
+            this._plyr.language = value
           }
           /**
            * Returns a boolean indicating if the current player is in fullscreen mode.
@@ -778,7 +780,7 @@ var Component =
             return this._plyr.pip
           },
           set: function set(value) {
-            return (this._plyr.pip = value)
+            this._plyr.pip = value
           }
         }
       ],
