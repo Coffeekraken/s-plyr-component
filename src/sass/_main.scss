@@ -1,9 +1,9 @@
 /**
- * @name    component
- * description
+ * @name    SPlyrComponent
+ * Simple webcomponent wrapper around the nice plyr library
  *
  * @example   html
- * <!-- example here -->
+ * <s-plyr src="my-cool-video.mp4" autoplay muted></s-plyr>
  *
  * @author    Olivier Bossel <olivier.bossel@gmail.com>
  */
@@ -12,18 +12,16 @@
  * Print out the bare and style component css
  * @param 	{List<Color>} 		[$color=default] 		The color to generate
  */
-@mixin s-component-name(
-  $color: default
-) {
-  @include s-component-name-bare();
-  @include s-component-name-style($color);
+@mixin s-plyr($color: default) {
+  @include s-plyr-bare();
+  @include s-plyr-style($color);
 }
 
 /**
  * Print out the bare component css
  */
-@mixin s-component-name-bare() {
-  @include s-component('s-component-name') {
+@mixin s-plyr-bare() {
+  @include s-component("s-plyr") {
     /* something */
   }
 }
@@ -32,10 +30,13 @@
  * Print out the style component css
  * @param 	{Color} 		[$color=default] 		The color to generate
  */
-@mixin s-component-name-style(
-  $color: default
-) {
-  @include s-component('s-component-name') {
-    /* something */
+@mixin s-plyr-style($color: default) {
+  @include s-component("s-plyr") {
+    $plyr-color-main: s-color($color) !global;
+    $plyr-video-control-bg-hover: s-color($color) !global;
+    $plyr-audio-control-bg-hover: s-color($color) !global;
+    $plyr-tab-focus-default-color: s-color($color) !global;
+    $plyr-range-fill-bg: s-color($color) !global;
+    @include plyr-mixins();
   }
 }

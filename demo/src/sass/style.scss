@@ -1,10 +1,16 @@
-@import 'node_modules/coffeekraken-sugar/index';
-@import '../../../index';
+@import "node_modules/coffeekraken-sugar/index";
+@import "../../../index";
 
 @include s-setup(());
 @include s-init();
 @include s-classes();
 
+@include s-plyr-classes($colors: default primary secondary);
+
 body {
-	padding: s-space(bigger);
+  padding: s-space(bigger);
+}
+
+s-plyr {
+  max-width: s-rem(500px);
 }

@@ -40,7 +40,7 @@
     "test": "jest",
     "pretty-quick": "pretty-quick",
     "pretty-quick-commit": "pretty-quick --staged > /dev/null 2>&1",
-    "lint": "npm run lint:js && npm run lint:css",
+    "lint": "npm run lint:js",
     "lint:js": "eslint 'src/**/*.js'",
     "lint:css": "stylelint 'src/sass/**/*.scss'"
   },
@@ -103,7 +103,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.0",
-    "coffeekraken-code-playground": "^1.0.0",
+    "coffeekraken-code-playground": "^1.0.19",
     "coffeekraken-docblock-to-markdown": "^1.0.0",
     "coffeekraken-s-typography-component": "^1.0.1",
     "coffeekraken-scripts-stack": "^1.0.1",

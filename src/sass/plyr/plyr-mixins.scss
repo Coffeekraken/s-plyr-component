@@ -1,0 +1,21 @@
+@mixin plyr-mixins() {
+  @include plyr-base();
+
+  @include plyr-badges();
+  @include plyr-captions();
+  @include plyr-control();
+  @include plyr-controls();
+  @include plyr-embed();
+  @include plyr-menus();
+  @include plyr-poster();
+  @include plyr-progress();
+  @include plyr-sliders();
+  @include plyr-times();
+  @include plyr-tooltip();
+  @include plyr-video();
+  @include plyr-volume();
+
+  @include plyr-ads();
+
+  @include plyr-fullscreen();
+}

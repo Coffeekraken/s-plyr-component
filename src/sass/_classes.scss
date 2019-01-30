@@ -1,50 +1,56 @@
+@import "plyr/plyr.scss";
+@import "plyr/plyr-mixins.scss";
+
 /**
- * @name    component
- * description
+ * @name    SPlyrComponent
+ * Simple webcomponent wrapper around the nice plyr library
  *
  * @example   html
- * <!-- example here -->
+ * <s-plyr src="my-cool-video.mp4" autoplay muted></s-plyr>
  *
  * @author    Olivier Bossel <olivier.bossel@gmail.com>
  */
 
 /**
  * Print out the bare and style component css
+ * Generated styles:
+ * - `s-plyr`
+ * - `s-plyr[color="{$color}"]`
  * @param 	{List<Color>} 		[$color=default primary secondary] 		The colors to generate
  */
-@mixin s-component-name-classes(
-  $colors: default primary secondary
-) {
-  @include s-component-name-classes-bare();
-  @include s-component-name-classes-style($colors);
+@mixin s-plyr-classes($colors: default primary secondary) {
+  @include s-plyr-classes-bare();
+  @include s-plyr-classes-style($colors);
 }
 
 /**
  * Print out the bare component css
  */
-@mixin s-component-name-classes-bare() {
-  @include s-component('s-component-name') {
+@mixin s-plyr-classes-bare() {
+  @include s-component("s-plyr") {
     /* something */
   }
 }
 
 /**
  * Print out the style component css
+ * Generated styles:
+ * - `s-plyr`
+ * - `s-plyr[color="{$color}"]`
  * @param 	{List<Color>} 		[$color=default primary secondary] 		The colors to generate
  */
-@mixin s-component-name-classes-style(
-  $colors: default primary secondary
-) {
-  @include s-component('s-component-name') {
+@mixin s-plyr-classes-style($colors: default primary secondary) {
+  @include s-component("s-plyr") {
     @each $color in $colors {
-      $sel : ".#{s-component()}--#{$color}";
+      $sel: "#{s-component()}[color='#{$color}']";
 
       @if $color == default {
-        $sel : ".#{s-component()}";
+        $sel: "#{s-component()}";
       }
 
-      #{s-selector($sel)} {
+      #{$sel} {
         /* something */
+        @include s-plyr-style($color);
       }
     }
   }

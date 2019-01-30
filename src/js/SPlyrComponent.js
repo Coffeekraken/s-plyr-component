@@ -1,6 +1,6 @@
 import SWebComponent from "coffeekraken-sugar/js/core/SWebComponent"
-import Plyr from 'plyr/dist/plyr.polyfilled'
-import appendStylesheetLink from 'coffeekraken-sugar/js/dom/appendStylesheetLink'
+import Plyr from "plyr/dist/plyr.polyfilled"
+import appendStylesheetLink from "coffeekraken-sugar/js/dom/appendStylesheetLink"
 
 export default class Component extends SWebComponent {
   /**
@@ -10,7 +10,6 @@ export default class Component extends SWebComponent {
    */
   static get defaultProps() {
     return {
-
       /**
        * Specify the video source. Can be a local video file, a youtube or a vimeo url
        * @prop
@@ -23,7 +22,14 @@ export default class Component extends SWebComponent {
        * @prop
        * @type    {Boolean}
        */
-      loadCss: true,
+      loadCss: false,
+
+      /**
+       * Specify the poster image to use. This is usable only with local video. Youtube and vimeo will provide their own poster picture
+       * @prop
+       * @type    {String}
+       */
+      poster: null,
 
       /**
        * Completely disable Plyr. This would allow you to do a User Agent check or similar to programmatically enable or disable Plyr for a certain UA. Example below.
@@ -44,14 +50,26 @@ export default class Component extends SWebComponent {
        * @prop
        * @type    {Array|Function|HTMLElement}
        */
-      controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
+      controls: [
+        "play-large",
+        "play",
+        "progress",
+        "current-time",
+        "mute",
+        "volume",
+        "captions",
+        "settings",
+        "pip",
+        "airplay",
+        "fullscreen"
+      ],
 
       /**
        * If you're using the default controls are used then you can specify which settings to show in the menu
        * @prop
        * @type    {Array}
        */
-      settings: ['captions', 'quality', 'speed', 'loop'],
+      settings: ["captions", "quality", "speed", "loop"],
 
       /**
        * Used for internationalization (i18n) of the text within the UI.
@@ -72,21 +90,21 @@ export default class Component extends SWebComponent {
        * @prop
        * @type    {String}
        */
-      iconUrl: 'https://cdn.plyr.io/3.4.8/plyr.svg',
+      iconUrl: "https://cdn.plyr.io/3.4.8/plyr.svg",
 
       /**
        * Specify the id prefix for the icons used in the default controls (e.g. "plyr-play" would be "plyr"). This is to prevent clashes if you're using your own SVG sprite but with the default controls. Most people can ignore this option.
        * @prop
        * @type    {String}
        */
-      iconPrefix: 'plyr',
+      iconPrefix: "plyr",
 
       /**
        * Specify a URL or path to a blank video file used to properly cancel network requests.
        * @prop
        * @type    {String}
        */
-      blankVideo: 'https://cdn.plyr.io/static/blank.mp4',
+      blankVideo: "https://cdn.plyr.io/static/blank.mp4",
 
       /**
        * Autoplay the media on load. This is generally advised against on UX grounds. It is also disabled by default in some browsers. If the autoplay attribute is present on a <video> or <audio> element, this will be automatically set to true.
@@ -205,7 +223,7 @@ export default class Component extends SWebComponent {
        * @prop
        * @type    {Object}
        */
-      captions: { active: false, language: 'auto', update: false },
+      captions: { active: false, language: "auto", update: false },
 
       /**
        * enabled: Toggles whether fullscreen should be enabled. fallback: Allow fallback to a full-window solution. iosNative: whether to use native iOS fullscreen when entering fullscreen (no custom controls)
@@ -219,14 +237,14 @@ export default class Component extends SWebComponent {
        * @prop
        * @type    {String}
        */
-      ratio: '16:9',
+      ratio: "16:9",
 
       /**
        * enabled: Allow use of local storage to store user settings. key: The key name to use.
        * @prop
        * @type    {Object}
        */
-      storage: { enabled: true, key: 'plyr' },
+      storage: { enabled: false, key: "plyr" },
 
       /**
        * selected: The default speed for playback. options: Options to display in the menu. Most browsers will refuse to play slower than 0.5.
@@ -240,10 +258,23 @@ export default class Component extends SWebComponent {
        * @prop
        * @type    {Object}
        */
-      quality: { default: 'default', options: ['hd2160', 'hd1440', 'hd1080', 'hd720', 'large', 'medium', 'small', 'tiny', 'default'] },
+      quality: {
+        default: "default",
+        options: [
+          "hd2160",
+          "hd1440",
+          "hd1080",
+          "hd720",
+          "large",
+          "medium",
+          "small",
+          "tiny",
+          "default"
+        ]
+      },
 
       /**
-       * active: Whether to loop the current video. If the loop attribute is present on a <video> or <audio> element, this will be automatically set to true This is an object to support future functionality.
+       * active: Whether to loop the current video. If the loop attribute is present on a <video> or <audio> element, this will be automatically set to true.
        * @prop
        * @type    {Boolean}
        */
@@ -254,7 +285,7 @@ export default class Component extends SWebComponent {
        * @prop
        * @type    {Object}
        */
-      ads: { enabled: false, publisherId: '' },
+      ads: { enabled: false, publisherId: "" },
 
       /**
        * If you wish to override any API URLs then you can do so here. You can also set a custom download URL for the download button.
@@ -262,7 +293,6 @@ export default class Component extends SWebComponent {
        * @type    Object
        */
       urls: {}
-
     }
   }
 
@@ -272,11 +302,11 @@ export default class Component extends SWebComponent {
    * @protected
    */
   static get physicalProps() {
-    return ['muted','autoplay','loop']
+    return ["muted", "autoplay", "loop"]
   }
 
   static get requiredProps() {
-    return ['src']
+    return ["src"]
   }
 
   /**
@@ -298,23 +328,6 @@ export default class Component extends SWebComponent {
    */
   componentWillMount() {
     super.componentWillMount()
-
-    console.log('MOUNT')
-
-    const $holder = this._getInitialHtml()
-    this.appendChild($holder)
-
-    // append the stylesheet
-    if (this.props.loadCss) {
-      appendStylesheetLink('https://cdn.plyr.io/3.4.8/plyr.css')
-    }
-
-    // create a plyr
-    this._plyr = new Plyr($holder, {
-      ...this.props,
-      loop: { active: this.props.loop }
-    })
-    console.log(this._plyr)
   }
 
   /**
@@ -324,6 +337,55 @@ export default class Component extends SWebComponent {
    */
   componentMount() {
     super.componentMount()
+
+    // generate the initial html on which the plyr instance will
+    // plug itself
+    const $holder = this._getInitialHtml()
+    this.appendChild($holder)
+
+    // append the stylesheet
+    if (this.props.loadCss) {
+      appendStylesheetLink("https://cdn.plyr.io/3.4.8/plyr.css")
+    }
+
+    // create a plyr
+    this._plyr = new Plyr($holder, {
+      ...this.props,
+      loop: { active: this.props.loop } // remap the loop property as an object
+    })
+
+    if (this.props.muted) {
+      this.volume = 0
+    }
+
+    // listen for some events
+    this._plyr.on("playing", () => {
+      this.setAttribute("playing", true)
+      this.removeAttribute("paused")
+      this.removeAttribute("ended")
+    })
+    this._plyr.on("pause", () => {
+      this.removeAttribute("playing")
+      this.setAttribute("paused", true)
+      this.removeAttribute("ended")
+    })
+    this._plyr.on("volumechange", () => {
+      if (this.volume === 0) {
+        this.setAttribute("muted", true)
+      } else {
+        this.removeAttribute("muted")
+      }
+    })
+    this._plyr.on("seeking", () => {
+      this.setAttribute("seeking", true)
+      this.removeAttribute("ended")
+    })
+    this._plyr.on("seeked", () => {
+      this.removeAttribute("seeking")
+    })
+    this._plyr.on("ended", () => {
+      this.setAttribute("ended", true)
+    })
   }
 
   /**
@@ -333,6 +395,9 @@ export default class Component extends SWebComponent {
    */
   componentUnmount() {
     super.componentUnmount()
+
+    // destroy the plyr instance
+    this.destroy()
   }
 
   /**
@@ -350,22 +415,25 @@ export default class Component extends SWebComponent {
    */
   _getInitialHtml() {
     if (this.props.src.match(/youtube|youtu\.be/)) {
-      const $youtube = document.createElement('div')
-      $youtube.setAttribute('data-plyr-provider', 'youtube')
-      $youtube.setAttribute('data-plyr-embed-id', this.props.src)
+      const $youtube = document.createElement("div")
+      $youtube.setAttribute("data-plyr-provider", "youtube")
+      $youtube.setAttribute("data-plyr-embed-id", this.props.src)
       return $youtube
-    } else if (this.props.src.match(/vimeo.com/)) {
-      const $vimeo = document.createElement('div')
-      $vimeo.setAttribute('data-plyr-provider', 'vimeo')
-      $vimeo.setAttribute('data-plyr-embed-id', this.props.src)
-      return $vimeo
-    } else {
-      const $video = document.createElement('video')
-      $video.src = this.props.src
-      $video.setAttribute('playinline', true)
-      $video.setAttribute('controls', true)
-      return $video
     }
+    if (this.props.src.match(/vimeo.com/)) {
+      const $vimeo = document.createElement("div")
+      $vimeo.setAttribute("data-plyr-provider", "vimeo")
+      $vimeo.setAttribute("data-plyr-embed-id", this.props.src)
+      return $vimeo
+    }
+    const $video = document.createElement("video")
+    $video.src = this.props.src
+    if (this.props.poster) {
+      $video.setAttribute("poster", this.props.poster)
+    }
+    $video.setAttribute("playinline", true)
+    $video.setAttribute("controls", true)
+    return $video
   }
 
   /**
@@ -576,8 +644,9 @@ export default class Component extends SWebComponent {
   get currentTime() {
     return this._plyr.currentTime
   }
+
   set currentTime(value) {
-    return this._plyr.currentTime = value
+    this._plyr.currentTime = value
   }
 
   /**
@@ -600,8 +669,9 @@ export default class Component extends SWebComponent {
   get volume() {
     return this._plyr.volume
   }
+
   set volume(value) {
-    return this._plyr.volume = value
+    this._plyr.volume = value
   }
 
   /**
@@ -610,8 +680,9 @@ export default class Component extends SWebComponent {
   get muted() {
     return this._plyr.muted
   }
+
   set muted(value) {
-    return this._plyr.muted = value
+    this._plyr.muted = value
   }
 
   /**
@@ -627,8 +698,9 @@ export default class Component extends SWebComponent {
   get speed() {
     return this._plyr.speed
   }
+
   set speed(value) {
-    return this._plyr.speed = value
+    this._plyr.speed = value
   }
 
   /**
@@ -637,8 +709,9 @@ export default class Component extends SWebComponent {
   get quality() {
     return this._plyr.quality
   }
+
   set quality(value) {
-    return this._plyr.quality = value
+    this._plyr.quality = value
   }
 
   /**
@@ -647,8 +720,9 @@ export default class Component extends SWebComponent {
   get loop() {
     return this._plyr.loop
   }
+
   set loop(value) {
-    return this._plyr.loop = value
+    this._plyr.loop = value
   }
 
   /**
@@ -657,8 +731,9 @@ export default class Component extends SWebComponent {
   get source() {
     return this._plyr.source
   }
+
   set source(value) {
-    return this._plyr.source = value
+    this._plyr.source = value
   }
 
   /**
@@ -667,8 +742,9 @@ export default class Component extends SWebComponent {
   get poster() {
     return this._plyr.poster
   }
+
   set poster(value) {
-    return this._plyr.poster = value
+    this._plyr.poster = value
   }
 
   /**
@@ -677,9 +753,9 @@ export default class Component extends SWebComponent {
   get autoplay() {
     return this._plyr.autoplay
   }
+
   set autoplay(value) {
-    console.log(this)
-    return this._plyr.autoplay = value
+    this._plyr.autoplay = value
   }
 
   /**
@@ -688,8 +764,9 @@ export default class Component extends SWebComponent {
   get currentTrack() {
     return this._plyr.currentTrack
   }
+
   set currentTrack(value) {
-    return this._plyr.currentTrack = value
+    this._plyr.currentTrack = value
   }
 
   /**
@@ -698,8 +775,9 @@ export default class Component extends SWebComponent {
   get language() {
     return this._plyr.language
   }
+
   set language(value) {
-    return this._plyr.language = value
+    this._plyr.language = value
   }
 
   /**
@@ -722,9 +800,8 @@ export default class Component extends SWebComponent {
   get pip() {
     return this._plyr.pip
   }
+
   set pip(value) {
-    return this._plyr.pip = value
+    this._plyr.pip = value
   }
-
 }
-

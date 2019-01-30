@@ -3,7 +3,7 @@ module.exports = {
   port: 3000,
 
   // title
-  title: "s-{component-name}-component",
+  title: "s-plyr-component",
 
   // layout
   layout: "right",
@@ -19,13 +19,9 @@ module.exports = {
     html: {
       language: "html",
       data: `
-        <h1 class="h3 m-b-small">
-          Coffeekraken s-{component-name}-component
-        </h1>
-        <p class="p m-b-bigger">
-          {component-description}
-        </p>
-        <!-- examples here... -->
+        <s-plyr src="/demo/data/SampleVideo_1280x720_10mb.mp4" color="primary" muted autoplay controls="['play-large','play','progress','current-time','volume','airplay','fullscreen']"></s-plyr>
+        <s-plyr src="https://www.youtube.com/watch?v=dLkWB-Iw3-s"></s-plyr>
+        <s-plyr src="https://player.vimeo.com/video/127200914" color="secondary" muted></s-plyr>
       `
     },
     css: {
@@ -33,19 +29,20 @@ module.exports = {
       data: `
         @import 'node_modules/coffeekraken-sugar/index';
         @import 'node_modules/coffeekraken-s-typography-component/index';
+        @import 'index';
         @include s-init();
         @include s-classes();
         @include s-typography-classes();
         body {
           padding: s-space(bigger);
         }
-        // component css here...
+        @include s-plyr-classes();
       `
     },
     js: {
       language: "js",
       data: `
-        import Component from './dist/index'
+        import SPlyrComponent from './dist/index'
       `
     }
   }
