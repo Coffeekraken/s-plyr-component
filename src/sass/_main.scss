@@ -1,0 +1,41 @@
+/**
+ * @name    component
+ * description
+ *
+ * @example   html
+ * <!-- example here -->
+ *
+ * @author    Olivier Bossel <olivier.bossel@gmail.com>
+ */
+
+/**
+ * Print out the bare and style component css
+ * @param 	{List<Color>} 		[$color=default] 		The color to generate
+ */
+@mixin s-component-name(
+  $color: default
+) {
+  @include s-component-name-bare();
+  @include s-component-name-style($color);
+}
+
+/**
+ * Print out the bare component css
+ */
+@mixin s-component-name-bare() {
+  @include s-component('s-component-name') {
+    /* something */
+  }
+}
+
+/**
+ * Print out the style component css
+ * @param 	{Color} 		[$color=default] 		The color to generate
+ */
+@mixin s-component-name-style(
+  $color: default
+) {
+  @include s-component('s-component-name') {
+    /* something */
+  }
+}

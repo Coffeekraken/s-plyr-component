@@ -1,0 +1,51 @@
+/**
+ * @name    component
+ * description
+ *
+ * @example   html
+ * <!-- example here -->
+ *
+ * @author    Olivier Bossel <olivier.bossel@gmail.com>
+ */
+
+/**
+ * Print out the bare and style component css
+ * @param 	{List<Color>} 		[$color=default primary secondary] 		The colors to generate
+ */
+@mixin s-component-name-classes(
+  $colors: default primary secondary
+) {
+  @include s-component-name-classes-bare();
+  @include s-component-name-classes-style($colors);
+}
+
+/**
+ * Print out the bare component css
+ */
+@mixin s-component-name-classes-bare() {
+  @include s-component('s-component-name') {
+    /* something */
+  }
+}
+
+/**
+ * Print out the style component css
+ * @param 	{List<Color>} 		[$color=default primary secondary] 		The colors to generate
+ */
+@mixin s-component-name-classes-style(
+  $colors: default primary secondary
+) {
+  @include s-component('s-component-name') {
+    @each $color in $colors {
+      $sel : ".#{s-component()}--#{$color}";
+
+      @if $color == default {
+        $sel : ".#{s-component()}";
+      }
+
+      #{s-selector($sel)} {
+        /* something */
+      }
+    }
+  }
+}

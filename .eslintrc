@@ -1,0 +1,11 @@
+{
+  "extends": ["airbnb","prettier"],
+  "rules": {
+    "semi": ["error","never"],
+    "import/newline-after-import": "off"
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  }
+}
