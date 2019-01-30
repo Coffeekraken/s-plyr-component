@@ -22,7 +22,7 @@
  */
 @mixin s-plyr-bare() {
   @include s-component("s-plyr") {
-    /* something */
+    @include plyr-base();
   }
 }
 
@@ -32,11 +32,7 @@
  */
 @mixin s-plyr-style($color: default) {
   @include s-component("s-plyr") {
-    $plyr-color-main: s-color($color) !global;
-    $plyr-video-control-bg-hover: s-color($color) !global;
-    $plyr-audio-control-bg-hover: s-color($color) !global;
-    $plyr-tab-focus-default-color: s-color($color) !global;
-    $plyr-range-fill-bg: s-color($color) !global;
-    @include plyr-mixins();
+    @warn ($color);
+    @include plyr-color($color);
   }
 }

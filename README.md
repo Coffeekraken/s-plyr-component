@@ -39,14 +39,15 @@
 4. [Base props](#readme-base-props)
 5. [API](#readme-api)
 6. [Getters/Setters](#readme-getters-setters)
-7. [Javascript API](doc/js)
-8. [SASS API](doc/sass)
-9. [Sugar Web Components Documentation](https://github.com/coffeekraken/sugar/blob/master/doc/webcomponent.md)
-10. [Browsers support](#readme-browsers-support)
-11. [Code linting](#readme-code-linting)
-12. [Contribute](#readme-contribute)
-13. [Who are Coffeekraken?](#readme-who-are-coffeekraken)
-14. [Licence](#readme-license)
+7. [Events](#readme-events)
+8. [Javascript API](doc/js)
+9. [SASS API](doc/sass)
+10. [Sugar Web Components Documentation](https://github.com/coffeekraken/sugar/blob/master/doc/webcomponent.md)
+11. [Browsers support](#readme-browsers-support)
+12. [Code linting](#readme-code-linting)
+13. [Contribute](#readme-contribute)
+14. [Who are Coffeekraken?](#readme-who-are-coffeekraken)
+15. [Licence](#readme-license)
 
 <a name="readme-install"></a>
 
@@ -225,6 +226,19 @@ The webcomponent proxies all these getters/setters from the plyr instance:
 - `fullscreenActive`: getter
 - `fullscreenEnabled`: getter
 - `pip`: getter/setter
+
+<a id="readme-events"></a>
+
+## Events
+
+All the plyr events are proxied. This mean that you can listen to them directly on the `s-plyr` component using your plain old `addEventListener`. Here's an example:
+
+```js
+const $myPlyr = document.querySelector("s-plyr")
+$myPlyr.addEventListener("ended", e => {
+  // do something on video end
+})
+```
 
 <a id="readme-browsers-support"></a>
 

@@ -1,5 +1,5 @@
-@import "plyr/plyr.scss";
-@import "plyr/plyr-mixins.scss";
+@import "plyr-base";
+@import "plyr-color";
 
 /**
  * @name    SPlyrComponent
@@ -50,7 +50,7 @@
 
       #{$sel} {
         /* something */
-        @include s-plyr-style($color);
+        @include s-plyr($color);
       }
     }
   }
