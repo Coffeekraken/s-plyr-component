@@ -1,6 +1,7 @@
 import SWebComponent from "coffeekraken-sugar/js/core/SWebComponent"
 import Plyr from "plyr/dist/plyr.polyfilled"
 import appendStylesheetLink from "coffeekraken-sugar/js/dom/appendStylesheetLink"
+import dispatchEvent from "coffeekraken-sugar/js/dom/dispatchEvent"
 
 export default class Component extends SWebComponent {
   /**
@@ -354,9 +355,27 @@ export default class Component extends SWebComponent {
       loop: { active: this.props.loop } // remap the loop property as an object
     })
 
-    if (this.props.muted) {
-      this.volume = 0
-    }
+    // proxy plyr events
+    this._proxyPlyrEvents([
+      "progress",
+      "playing",
+      "play",
+      "pause",
+      "timeupdate",
+      "volumechange",
+      "seeking",
+      "seeked",
+      "ratechange",
+      "ended",
+      "enterfullscreen",
+      "exitfullscreen",
+      "captionsenabled",
+      "captionsdisabled",
+      "languagechange",
+      "controlshidden",
+      "controlsshown",
+      "ready"
+    ])
 
     // listen for some events
     this._plyr.on("playing", () => {
@@ -407,6 +426,17 @@ export default class Component extends SWebComponent {
    */
   componentWillReceiveProp(name, newVal, oldVal) {
     super.componentWillReceiveProp(name, newVal, oldVal)
+  }
+
+  /**
+   * Proxy the plyr events
+   */
+  _proxyPlyrEvents(events) {
+    events.forEach(event => {
+      this._plyr.on("event", e => {
+        dispatchEvent(this, event, e)
+      })
+    })
   }
 
   /**
@@ -805,3 +835,195 @@ export default class Component extends SWebComponent {
     this._plyr.pip = value
   }
 }
+
+/**
+ * @event
+ * @name    progress
+ * Sent periodically to inform interested parties of progress downloading the media. Information about the current amount of the media that has been downloaded is available in the media element's buffered attribute.
+ */
+
+/**
+ * @event
+ * @name    playing
+ * Sent when the media begins to play (either for the first time, after having been paused, or after ending and then restarting).
+ */
+
+/**
+ * @event
+ * @name    play
+ * Sent when playback of the media starts after having been paused; that is, when playback is resumed after a prior pause event.
+ */
+
+/**
+ * @event
+ * @name    pause
+ * Sent when playback is paused.
+ */
+
+/**
+ * @event
+ * @name    timeupdate
+ * The time indicated by the element's currentTime attribute has changed
+ */
+
+/**
+ * @event
+ * @name    volumechange
+ * Sent when the audio volume changes (both when the volume is set and when the muted state is changed).
+ */
+
+/**
+ * @event
+ * @name    seeking
+ * Sent when a seek operation begins.
+ */
+
+/**
+ * @event
+ * @name    seeked
+ * Sent when a seek operation completes.
+ */
+
+/**
+ * @event
+ * @name    ratechange
+ * Sent when the playback speed changes.
+ */
+
+/**
+ * @event
+ * @name    ended
+ * Sent when playback completes. Note: This does not fire if autoplay is true.
+ */
+
+/**
+ * @event
+ * @name    enterfullscreen
+ * Sent when the player enters fullscreen mode (either the proper fullscreen or full-window fallback for older browsers).
+ */
+
+/**
+ * @event
+ * @name    exitfullscreen
+ * Sent when the player exits fullscreen mode.
+ */
+
+/**
+ * @event
+ * @name    captionsenabled
+ * Sent when captions are enabled.
+ */
+
+/**
+ * @event
+ * @name    captionsdisabled
+ * Sent when captions are disabled.
+ */
+
+/**
+ * @event
+ * @name    languagechange
+ * Sent when the caption language is changed.
+ */
+
+/**
+ * @event
+ * @name    controlshidden
+ * Sent when the controls are hidden
+ */
+
+/**
+ * @event
+ * @name    controlsshown
+ * Sent when the controls are shown.
+ */
+
+/**
+ * @event
+ * @name    ready
+ * Triggered when the instance is ready for API calls.
+ */
+
+/**
+ * @event
+ * @name    loadstart
+ * Sent when loading of the media begins.
+ * HTML5 only
+ */
+
+/**
+ * @event
+ * @name    loadeddata
+ * The first frame of the media has finished loading.
+ * HTML5 only
+ */
+
+/**
+ * @event
+ * @name    loadedmetadata
+ * The media's metadata has finished loading; all attributes now contain as much useful information as they're going to.
+ * HTML5 only
+ */
+
+/**
+ * @event
+ * @name    qualitychange
+ * The quality of playback has changed
+ * HTML5 only
+ */
+
+/**
+ * @event
+ * @name    canplay
+ * Sent when enough data is available that the media can be played, at least for a couple of frames. This corresponds to the HAVE_ENOUGH_DATA readyState.
+ * HTML5 only
+ */
+
+/**
+ * @event
+ * @name    canplaythrough
+ * Sent when the ready state changes to CAN_PLAY_THROUGH, indicating that the entire media can be played without interruption, assuming the download rate remains at least at the current level. Note: Manually setting the currentTime will eventually fire a canplaythrough event in firefox. Other browsers might not fire this event.
+ * HTML5 only
+ */
+
+/**
+ * @event
+ * @name    stalled
+ * Sent when the user agent is trying to fetch media data, but data is unexpectedly not forthcoming.
+ * HTML5 only
+ */
+
+/**
+ * @event
+ * @name    waiting
+ * Sent when the requested operation (such as playback) is delayed pending the completion of another operation (such as a seek).
+ * HTML5 only
+ */
+
+/**
+ * @event
+ * @name    emptied
+ * he media has become empty; for example, this event is sent if the media has already been loaded (or partially loaded), and the load() method is called to reload it.
+ * HTML5 only
+ */
+
+/**
+ * @event
+ * @name    cuechange
+ * Sent when a TextTrack has changed the currently displaying cues.
+ * HTML5 only
+ */
+
+/**
+ * @event
+ * @name    error
+ * Sent when an error occurs. The element's error attribute contains more information.
+ * HTML5 only
+ */
+
+/**
+ * @event
+ * @name    statechange
+ * The state of the player has changed. The code can be accessed via event.detail.code. Possible values are -1: Unstarted, 0: Ended, 1: Playing, 2: Paused, 3: Buffering, 5: Video cued. See the YouTube Docs for more information.
+ * Youtube only
+ */

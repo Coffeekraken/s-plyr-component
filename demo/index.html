@@ -12,6 +12,13 @@
       autoplay
     ></s-plyr>
 
+    <script>
+      var plyr = document.querySelector("s-plyr:first-child")
+      plyr.addEventListener("ended", function(e) {
+        console.log("ended")
+      })
+    </script>
+
     <s-plyr src="https://www.youtube.com/watch?v=dLkWB-Iw3-s"></s-plyr>
 
     <s-plyr src="https://player.vimeo.com/video/127200914" muted></s-plyr>

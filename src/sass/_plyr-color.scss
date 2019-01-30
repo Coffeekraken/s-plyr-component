@@ -1,0 +1,38 @@
+@mixin plyr-color($color) {
+  .plyr--audio .plyr__control.plyr__tab-focus,
+  .plyr--audio .plyr__control:hover,
+  .plyr--audio .plyr__control[aria-expanded="true"] {
+    background: s-color($color);
+  }
+  .plyr--video .plyr__control.plyr__tab-focus,
+  .plyr--video .plyr__control:hover,
+  .plyr--video .plyr__control[aria-expanded="true"] {
+    background: s-color($color);
+  }
+  .plyr__control--overlaid {
+    background: s-color($color, -darken 10% -opacity 0.8);
+  }
+  .plyr__control--overlaid:focus,
+  .plyr__control--overlaid:hover {
+    background: s-color($color);
+  }
+  .plyr__menu__container
+    .plyr__control[role="menuitemradio"][aria-checked="true"]::before {
+    background: s-color($color);
+  }
+  .plyr--full-ui input[type="range"] {
+    color: s-color($color);
+  }
+  .plyr--full-ui
+    input[type="range"].plyr__tab-focus::-webkit-slider-runnable-track {
+    box-shadow: 0 0 0 5px s-color($color, -darken 30% -opacity 0.5);
+  }
+  .plyr--full-ui input[type="range"].plyr__tab-focus::-moz-range-track {
+    box-shadow: 0 0 0 5px s-color($color, -darken 30% -opacity 0.5);
+    outline: 0;
+  }
+  .plyr--full-ui input[type="range"].plyr__tab-focus::-ms-track {
+    box-shadow: 0 0 0 5px s-color($color, -darken 30% -opacity 0.5);
+    outline: 0;
+  }
+}

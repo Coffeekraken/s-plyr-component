@@ -48,7 +48,7 @@ If a function is passed, it is assumed your method will return either an element
 
 Type : **{ [Array](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Array) , [Function](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Function) , [HTMLElement](https://developer.mozilla.org/fr/docs/Web/API/HTMLElement) }**
 
-Default : **['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen']**
+Default : **[**
 
 ## settings
 
@@ -56,7 +56,7 @@ If you're using the default controls are used then you can specify which setting
 
 Type : **{ [Array](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Array) }**
 
-Default : **['captions', 'quality', 'speed', 'loop']**
+Default : **["captions", "quality", "speed", "loop"]**
 
 ## i18n
 
@@ -232,7 +232,7 @@ active: Toggles if captions should be active by default. language: Sets the defa
 
 Type : **{ [Object](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Object) }**
 
-Default : **{ active: false, language: 'auto', update: false }**
+Default : **{ active: false, language: "auto", update: false }**
 
 ## fullscreen
 
@@ -256,7 +256,7 @@ enabled: Allow use of local storage to store user settings. key: The key name to
 
 Type : **{ [Object](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Object) }**
 
-Default : **{ enabled: false, key: 'plyr' }**
+Default : **{ enabled: false, key: "plyr" }**
 
 ## speed
 
@@ -272,7 +272,7 @@ Currently only supported by YouTube. default is the default quality level, deter
 
 Type : **{ [Object](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Object) }**
 
-Default : **{ default: 'default', options: ['hd2160', 'hd1440', 'hd1080', 'hd720', 'large', 'medium', 'small', 'tiny', 'default'] }**
+Default : **{**
 
 ## loop
 
@@ -288,7 +288,7 @@ enabled: Whether to enable vi.ai ads. publisherId: Your unique vi.ai publisher I
 
 Type : **{ [Object](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Object) }**
 
-Default : **{ enabled: false, publisherId: '' }**
+Default : **{ enabled: false, publisherId: "" }**
 
 ## urls
 
@@ -475,3 +475,137 @@ Returns a boolean indicating if the current player has fullscreen enabled.
 ## pip
 
 Gets or sets the picture-in-picture state of the player. The setter accepts a boolean. This currently only supported on Safari 10+ (on MacOS Sierra+ and iOS 10+) and Chrome 70+.
+
+# Events
+
+## progress
+
+Sent periodically to inform interested parties of progress downloading the media. Information about the current amount of the media that has been downloaded is available in the media element's buffered attribute.
+
+## playing
+
+Sent when the media begins to play (either for the first time, after having been paused, or after ending and then restarting).
+
+## play
+
+Sent when playback of the media starts after having been paused; that is, when playback is resumed after a prior pause event.
+
+## pause
+
+Sent when playback is paused.
+
+## timeupdate
+
+The time indicated by the element's currentTime attribute has changed
+
+## volumechange
+
+Sent when the audio volume changes (both when the volume is set and when the muted state is changed).
+
+## seeking
+
+Sent when a seek operation begins.
+
+## seeked
+
+Sent when a seek operation completes.
+
+## ratechange
+
+Sent when the playback speed changes.
+
+## ended
+
+Sent when playback completes. Note: This does not fire if autoplay is true.
+
+## enterfullscreen
+
+Sent when the player enters fullscreen mode (either the proper fullscreen or full-window fallback for older browsers).
+
+## exitfullscreen
+
+Sent when the player exits fullscreen mode.
+
+## captionsenabled
+
+Sent when captions are enabled.
+
+## captionsdisabled
+
+Sent when captions are disabled.
+
+## languagechange
+
+Sent when the caption language is changed.
+
+## controlshidden
+
+Sent when the controls are hidden
+
+## controlsshown
+
+Sent when the controls are shown.
+
+## ready
+
+Triggered when the instance is ready for API calls.
+
+## loadstart
+
+Sent when loading of the media begins.
+HTML5 only
+
+## loadeddata
+
+The first frame of the media has finished loading.
+HTML5 only
+
+## loadedmetadata
+
+The media's metadata has finished loading; all attributes now contain as much useful information as they're going to.
+HTML5 only
+
+## qualitychange
+
+The quality of playback has changed
+HTML5 only
+
+## canplay
+
+Sent when enough data is available that the media can be played, at least for a couple of frames. This corresponds to the HAVE_ENOUGH_DATA readyState.
+HTML5 only
+
+## canplaythrough
+
+Sent when the ready state changes to CAN_PLAY_THROUGH, indicating that the entire media can be played without interruption, assuming the download rate remains at least at the current level. Note: Manually setting the currentTime will eventually fire a canplaythrough event in firefox. Other browsers might not fire this event.
+HTML5 only
+
+## stalled
+
+Sent when the user agent is trying to fetch media data, but data is unexpectedly not forthcoming.
+HTML5 only
+
+## waiting
+
+Sent when the requested operation (such as playback) is delayed pending the completion of another operation (such as a seek).
+HTML5 only
+
+## emptied
+
+he media has become empty; for example, this event is sent if the media has already been loaded (or partially loaded), and the load() method is called to reload it.
+HTML5 only
+
+## cuechange
+
+Sent when a TextTrack has changed the currently displaying cues.
+HTML5 only
+
+## error
+
+Sent when an error occurs. The element's error attribute contains more information.
+HTML5 only
+
+## statechange
+
+The state of the player has changed. The code can be accessed via event.detail.code. Possible values are -1: Unstarted, 0: Ended, 1: Playing, 2: Paused, 3: Buffering, 5: Video cued. See the YouTube Docs for more information.
+Youtube only
