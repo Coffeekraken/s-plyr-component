@@ -415,8 +415,10 @@ export default class Component extends SWebComponent {
   componentUnmount() {
     super.componentUnmount()
 
-    // destroy the plyr instance
-    this.destroy()
+    try {
+      // destroy the plyr instance
+      this.destroy()
+    } catch (e) {}
   }
 
   /**
