@@ -306,9 +306,12 @@ var Component =
               _getPrototypeOf(Component.prototype),
               "componentUnmount",
               this
-            ).call(this) // destroy the plyr instance
+            ).call(this)
 
-            this.destroy()
+            try {
+              // destroy the plyr instance
+              this.destroy()
+            } catch (e) {}
           }
           /**
            * Component will receive prop
