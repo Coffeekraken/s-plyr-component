@@ -48,6 +48,15 @@
         $sel: "#{s-component()}";
       }
 
+      /**
+       * @name    Plyr #{$color}
+       * Cool #{$color} "plyr" video player. This player accept local files, youtube and video url as src.
+       * @styleguide    Atoms / Plyr
+       * @example    html
+       * <s-plyr color="#{$color}" src="https://www.youtube.com/watch?v=YE7VzlLtp-4"></s-plyr>
+       * @author    Olivier Bossel <olivier.bossel@gmail.com> (https://olivierbossel.com)
+       * @see    https://github.com/Coffeekraken/s-plyr-component
+       */
       #{$sel} {
         /* something */
         @include s-plyr($color);
