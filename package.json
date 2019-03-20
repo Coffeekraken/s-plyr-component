@@ -1,6 +1,6 @@
 {
   "name": "coffeekraken-s-plyr-component",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Simple webcomponent wrapper around the nice plyr library",
   "main": "dist/index.js",
   "homepage": "http://coffeekraken.io",
